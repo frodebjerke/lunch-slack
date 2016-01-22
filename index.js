@@ -2,13 +2,13 @@
 ///slack incoming webhook channel
 var channelUrl = process.env.CHANNEL;
 var channelName = process.env.CHANNEL_NAME || '#comics';
-var channelUsername = 'dilbert';
-var messagePretext = 'Dagens Dilbert';
+var channelUsername = 'lunch';
+var messagePretext = 'Ukas Lunch';
 var slack = require('slack-notify')(channelUrl);
 var request = require('request');
 var cheerio = require('cheerio');
-var endpoint = 'http://dilbert.com';
-var cronTime = process.env.CRON_TIME || '00 37 13 * * 1-7';
+var endpoint = 'http://lunchstriper.no';
+var cronTime = process.env.CRON_TIME || '00 11 11 * * 1';
 var timeZone = process.env.TIME_ZONE || 'Europe/Oslo';
 var port = process.env.PORT || 80;
 ////end configurations
@@ -38,8 +38,7 @@ function fetchDilbert() {
 		} catch (e) {
 			return console.log('ERROR ', e)
 		}
-		var src = $('img.img-comic').first().attr('src');
-		var title = $('.comic-title-name').first().text();
+		var src = $('img#comic-image').first().attr('src');
 
 		var payload = {
 			channel: channelName,
@@ -48,15 +47,19 @@ function fetchDilbert() {
 				"fallback": "Required plain-text summary of the attachment.",
 				"color": "#36a64f",
 				"pretext": messagePretext,
-				"title": title,
+				"title": 'Lunch det er LUNCH',
 				"image_url": src
 			}]
 		}
 
-		slack.send(payload, function() {
-			console.log("Slack message sent");
-		});
+		console.log('src', src);
+
+		// slack.send(payload, function() {
+		// 	console.log("Slack message sent");
+		// });
 	});
 
 
 }
+
+fetchDilbert()
