@@ -52,11 +52,9 @@ function fetchDilbert() {
 			}]
 		}
 
-		console.log('src', src);
-
-		// slack.send(payload, function() {
-		// 	console.log("Slack message sent");
-		// });
+		slack.send(payload, function() {
+			console.log("Slack message sent");
+		});
 	});
 
 
