@@ -59,5 +59,3 @@ function fetchDilbert() {
 
 
 }
-
-fetchDilbert()
